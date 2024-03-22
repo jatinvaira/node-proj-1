@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login or Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .form-box {
+            width: 45%;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .form-box h2 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .form-box form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-box label {
+            margin: 10px 0 5px;
+            color: #666;
+        }
+
+        .form-box input, .form-box select {
+            margin-bottom: 15px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+
+        button{
+          color: aquamarine;
+          font-size: 20px;
+          cursor: pointer;
+          outline: none;
+          transition: all 0.3s ease;
+          letter-spacing: 1px;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          background-image: linear-gradient(-90deg,#ffa700 ,#febd00 );
+          box-shadow: 0 5px 10px rgba(255, 167, 0, 0);
+          transform: translateY(0px);
+          opacity: 1;
+          position: relative;
+          overflow: hidden;
+          z-index: 1;
+        }
+
+        button::before {
+          content: "";
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          height: calc(100% + 4px);
+          width: calc(100% + 4px);
+          background: linear-gradient(-90deg,rgba(255, 167, 0, 0) ,
+          rgba(255, 255, 255, 0));
+          transform: rotateZ(45deg);
+          z-index: -1;
+        }
+
+        button::after {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          right: -2px;
+          height: calc(100% + 4px);
+          width: calc(100% + 4px);
+          background: linear-gradient(90deg,rgba(255, 167, 0, 0),
+          rgba(255, 255, 255, 0));
+          transform: rotateZ(-45deg);
+          z-index: -1;
+        }
+
+        button:hover {
+          filter: brightness(80%);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(255, 167, 0, .0);
+        }
+
+        button:active {
+          transform: translateY(3px);
+          box-shadow: 0 5px 10px rgba(255, 167, 0, .0);
+        }
+      
+    </style>
+      </style>
+    </head>
+    <body>
+      <div class="container">
+
+</head>
+<body>
+    <div class="header">
+        <h1>Login or Sign Up</h1>
+    </div>
+
+    <div class="container">
+        <div class="form-box">
+            <h2>Login</h2>
+            <form action="/login" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" placeholder="Enter your username" required />
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required />
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div class="form-box">
+            <h2>Sign Up</h2>
+            <form action="/signup" method="POST">
+                <label for="signup-username">Username:</label>
+                <input type="text" name="username" id="signup-username" placeholder="Choose a username" required />
+                <label for="signup-password">Password:</label>
+                <input type="password" name="password" id="signup-password" placeholder="Enter a password" required />
+                <label for="repeat-password">Repeat Password:</label>
+                <input type="password" name="repeatPassword" id="repeat-password" placeholder="Repeat your password" required />
+                <label for="user-type">User Type:</label>
+                <select name="userType" id="user-type">
+                    <option value="Driver">Driver</option>
+                    <option value="Examiner">Examiner</option>
+                    <option value="Admin">Admin</option>
+                </select>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Appointment Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <style>
+      /* Center align the user information div */
+      .appointment-form button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .appointment-form button:hover {
+        background-color: #45a049;
+      }
+
+      .user-info-container {
+        text-align: center;
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+
+      .user-info-container h2 {
+        font-size: 20px;
+      }
+
+      .user-info-container p {
+        font-size: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+
+      /* Style for the appointment form */
+      .appointment-form {
+        max-width: 400px;
+        margin: 20px auto;
+      }
+
+      .appointment-form label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .appointment-form input,
+      .appointment-form select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+
+      /* Style for displaying available time slots */
+      .time-slots-container {
+        margin-top: 20px;
+      }
+
+      .time-slot {
+        margin-right: 10px;
+        display: inline-block;
+        padding: 5px;
+        background-color: #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <strong><a href="/">Book Drive test</a></strong>
+        </div>
+
+        <ul>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-title">
+        <h1>Appointment Page</h1>
+        <div>Driving test Booking</div>
+      </div>
+    </section>
+
+    <% if (user) { %>
+    <div class="user-info-container">
+      <h2>User Information</h2>
+      <p>Username: <%= user.username %></p>
+    </div>
+    <% } else { %>
+    <div class="message-container">
+      <h3><%= errorMessage %></h3>
+    </div>
+    <% } %>
+
+    <!-- Appointment Form -->
+    <div class="appointment-form">
+      <h2>Book an Appointment</h2>
+
+      <!-- Appointment Creation Form -->
+      <!-- views/appointment.ejs -->
+
+      <form id="appointmentForm" action="/createAppointment" method="post">
+        <label for="date">Select Date:</label>
+        <input type="date" name="date" required />
+
+        <label for="time">Select Time:</label>
+        <!-- Display available time slots as buttons -->
+        <div
+          style="align-items: center; display: flex; justify-content: center"
+        >
+          <% availableTimeSlots.forEach(timeSlot => { %>
+          <button
+            type="button"
+            style="gap: 10px; padding: 5px; margin: 5px"
+            onclick="selectTime('<%= timeSlot %>')"
+          >
+            <%= timeSlot %>
+          </button>
+          <% }); %>
+        </div>
+        <div
+          style="
+            margin-top: 10px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+          "
+        >
+          <button style="align-items: center" type="submit">
+            Add Appointment
+          </button>
+        </div>
+      </form>
+
+      <script>
+        // JavaScript function to handle time slot selection
+        function selectTime(selectedTime) {
+          // Set the selected time in a hidden input field
+          const timeInput = document.createElement("input");
+          timeInput.type = "hidden";
+          timeInput.name = "time";
+          timeInput.value = selectedTime;
+
+          console.log(selectedTime);
+          // Remove any existing hidden input fields
+          const existingInput = document.querySelector('input[name="time"]');
+          if (existingInput) {
+            existingInput.remove();
+          }
+
+          // Append the new hidden input field to the form
+          document.getElementById("appointmentForm").appendChild(timeInput);
+        }
+      </script>
+    </div>
+
+    <!-- Display Available Time Slots -->
+    <div class="time-slots-container">
+      <h2>Available Time Slots:</h2>
+      <!-- Display available time slots here -->
+      <% for (let i = 0; i < availableTimeSlots.length; i++) { %>
+      <div
+        class="time-slot"
+        onclick="selectTime('<%= availableTimeSlots[i] %>')"
+      >
+        <%= availableTimeSlots[i] %>
+      </div>
+      <% } %>
+    </div>
+
+  <script src="/appointment.js"></script>
+  </body>
+</html>

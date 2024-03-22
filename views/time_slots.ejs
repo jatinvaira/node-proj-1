@@ -1,0 +1,14 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Available Time Slots</title>
+    </head>
+    <body>
+        <h1>Available Time Slots</h1>
+        <form action="/appointment" method="POST">
+            <% availableTimeSlots.forEach(slot => { %>
+                <button type="submit" name="timeSlot" value="<%= slot %>"><%= slot %></button>
+            <% }); %>
+        </form>
+    </body>
+    </html>

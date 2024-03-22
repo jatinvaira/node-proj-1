@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>G Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <style>
+      /* Center align the user information div */
+      .user-info-container {
+        text-align: center;
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .user-info-container h2 {
+        font-size: 20px;
+      }
+
+      .user-info-container p {
+        font-size: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <strong><a href="/">Book Drive test</a></strong>
+        </div>
+        <ul>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        </ul>
+      
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-title">
+        <h1>G Request</h1>
+        <div>Driving test Booking</div>
+      </div>
+    </section>
+
+    <!-- Display user-specific data or a message -->
+    <% if (user) { %>
+    <div class="user-info-container">
+      <h2>User Information</h2>
+      <p>Username: <%= user.username %></p>
+    </div>
+    <!-- Display other user-specific data as needed -->
+    <form action="/updateCarInfo" method="POST">
+      <!-- Update car information form -->
+      <div class="form-group">
+        <label for="make">Car Make:</label>
+        <input
+          type="text"
+          name="make"
+          placeholder="Car Make"
+          value="<%= user.car_details ? user.car_details.make : '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="model">Car Model:</label>
+        <input
+          type="text"
+          name="model"
+          placeholder="Car Model"
+          value="<%= user.car_details ? user.car_details.model : '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="year">Car Year:</label>
+        <input
+          type="text"
+          name="year"
+          placeholder="Car Year"
+          value="<%= user.car_details ? user.car_details.year : '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="platno">Plate Number:</label>
+        <input
+          type="text"
+          name="platno"
+          placeholder="Plate Number"
+          value="<%= user.car_details ? user.car_details.platno : '' %>"
+        />
+      </div>
+      <input type="hidden" name="licenseNumber" value="<%= user.licenseNo %>" />
+      <button type="submit">Update Car Information</button>
+    </form>
+    <% } else { %>
+    <p>No User Found</p>
+    <a href="/g2">Go back to G2 Page</a>
+    <% } %>
+  </body>
+  
+</html>

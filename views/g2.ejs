@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>G2 Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <style>
+      /* Center align the user information div */
+      .user-info-container {
+        text-align: center;
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .user-info-container h2 {
+        font-size: 20px;
+      }
+
+      .user-info-container p {
+        font-size: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+      /* Add this to your existing CSS styles */
+      .time-slot {
+        margin-right: 10px;
+        display: inline-block;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .available {
+        background-color: #ddd; /* or any color indicating available */
+      }
+
+      .booked {
+        background-color: #999; /* or any color indicating booked */
+        cursor: not-allowed; /* Optional: Change cursor for booked slots */
+      }
+
+      /* Style for displaying available time slots */
+      .time-slots-container {
+        margin-top: 20px;
+      }
+
+      .time-slot {
+        margin-right: 10px;
+        display: inline-block;
+        padding: 5px;
+        background-color: #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      /* Style for the calendar */
+      .calendar-container {
+        margin-top: 20px;
+      }
+
+      .calendar {
+        display: flex;
+        align-items: center;
+      }
+
+      .calendar label {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <strong><a href="/">Book Drive test</a></strong>
+        </div>
+        <ul>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-title">
+        <h1>G2 Request</h1>
+        <div>Driving test Booking</div>
+      </div>
+    </section>
+
+    <div class="user-info-container">
+      <% if (user) { %>
+      <h2>User Information</h2>
+      <p>Username: <%= user.username %></p>
+      <p>First Name: <%= user.firstname %></p>
+      <p>Last Name: <%= user.lastname %></p>
+      <p>License No: <%= user.licenseNo %></p>
+      <p>Age: <%= user.age %></p>
+      <p>Car Details:</p>
+      <% if (user.car_details) { %>
+      <p>Make: <%= user.car_details.make %></p>
+      <p>Model: <%= user.car_details.model %></p>
+      <p>Year: <%= user.car_details.year %></p>
+      <p>Plate No: <%= user.car_details.platno %></p>
+      <% } else { %>
+      <p>No car details available</p>
+      <% } %> <% } else { %>
+      <div class="message-container">
+        <h3><%= errorMessage %></h3>
+      </div>
+      <% } %>
+    </div>
+    <section>
+      <!-- Calendar for selecting date -->
+      <div class="calendar-container">
+        <h2>Select Date:</h2>
+        <div class="calendar">
+          <label for="selectedDate">Date:</label>
+          <input
+            type="date"
+            id="selectedDate"
+            name="selectedDate"
+            onchange="fetchAvailableTimeSlots()"
+          />
+        </div>
+      </div>
+
+      <h2>Available Time Slots:</h2>
+      <!-- Display available time slots -->
+      <div class="timeSlotsContainer" id="availableTimeSlots">
+        <% for (let i = 0; i < availableTimeSlots.length; i++) { %>
+        <div
+          class="time-slot <%= availableTimeSlots[i].isTimeSlotAvailable ? 'available' : 'booked' %>"
+          onclick="selectTime('<%= availableTimeSlots[i].time %>')"
+        >
+          <%= availableTimeSlots[i].time %>
+        </div>
+        <% } %>
+      </div>
+    </section>
+    <button onclick="bookAppointment('2023-12-01', '3:00 PM');">Book Appointment</button>
+
+    <!-- Display Admin-Added Appointments -->
+    <div class="admin-appointments-container">
+      <h2>Admin-Added Appointments:</h2>
+      <div id="adminAppointments"></div>
+    </div>
+    <script src="/js/g2_page.js"></script>
+  </body>
+</html>
